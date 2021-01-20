@@ -3,6 +3,7 @@ package jogodaforca.game;
 import java.util.HashSet;
 import java.util.Set;
 
+import jogodaforca.core.Config;
 import jogodaforca.core.Dictionary;
 import jogodaforca.core.InvalidCharacterException;
 import jogodaforca.core.Word;
@@ -10,7 +11,6 @@ import jogodaforca.ui.UI;
 
 public class Game {
 	
-	private static final int MAX_ERRORS = 5;
 	public void start()
 	{
 		UI.print("Bem vindo ao jogo da forca!!");
@@ -18,8 +18,10 @@ public class Game {
 		Dictionary d = Dictionary.getInstance();
 		Word word = d.nextWord();
 		int errorCount = 0;
+		int maxErrors = Integer.parseInt(Config.get("maxErrors"));
 		
 		UI.print("A palavra tem " + word.size() + " letras.");
+		UI.print("Você pode errar no máximo " + maxErrors + " vez(es).");
 		
 		Set<Character> usedChars = new HashSet<>();
 		
@@ -48,9 +50,9 @@ public class Game {
 				 {
 					 errorCount++;
 					 
-					 if(errorCount < MAX_ERRORS)
+					 if(errorCount < maxErrors)
 					 {
-						 UI.print("Você errou! Você ainda possui " +(MAX_ERRORS - errorCount) + " tentativa(s).");
+						 UI.print("Você errou! Você ainda possui " +(maxErrors - errorCount) + " tentativa(s).");
 					 }
 				 }
 				 
@@ -63,7 +65,7 @@ public class Game {
 					 break;
 				 }
 				 
-				 if(errorCount == MAX_ERRORS)
+				 if(errorCount == maxErrors)
 				 {
 					 UI.print("Você perdeu o jogo. A palavra correta era: " + word.getOriginalWord());
 					 UI.print("FIM DO JOGO");
