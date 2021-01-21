@@ -3,8 +3,6 @@ package jogodaforca.core;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.checkerframework.common.reflection.qual.GetClass;
-
 public class Config {
 	
 	private static Properties props = new Properties();
